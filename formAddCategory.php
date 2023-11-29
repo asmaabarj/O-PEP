@@ -1,21 +1,16 @@
 <?php
 include 'config.php';
 
-// Check if the form is submitted
 if (isset($_POST['categoryName'])) {
-    // Get the category name from the form
     $newCategoryName = $_POST['categoryName'];
 
-    // Check if the category name is not empty
     if (!empty($newCategoryName)) {
-        // Check if the category already exists
         $checkCategoryQuery = "SELECT idCategorie FROM categorie WHERE nomCategorie = '$newCategoryName'";
         $result = mysqli_query($conn, $checkCategoryQuery);
 
         if (mysqli_num_rows($result) > 0) {
             $error = "Category already exists.";
         } else {
-            // Insert the new category into the database
             $insertCategoryQuery = "INSERT INTO categorie (nomCategorie) VALUES ('$newCategoryName')";
             mysqli_query($conn, $insertCategoryQuery);
         }

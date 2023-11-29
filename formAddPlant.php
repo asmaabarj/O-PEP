@@ -55,7 +55,7 @@ $categoryResult = mysqli_query($conn, $categoryQuery);
                     <a href="formAddCategory.php" class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">Add Category</a>
                     <a href="formAddPlant.php" class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">Add Plant</a>
                     <a href="formUpdateCategory.php" class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer ">Update Category</a>
-                    <a href="index.php" class="p-4 border-b-2 border-green-500 text-red-600 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer mt-[30vh]">log out</a>
+                    <a href="index.php" class="p-4 border-b-2 border-green-500 text-red-600 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer mt-[0vh]">log out</a>
 
                 </div>
                 <a href="#" onclick=burgermenu() class=" block "><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
@@ -86,9 +86,7 @@ $categoryResult = mysqli_query($conn, $categoryQuery);
                         while ($categoryRow = mysqli_fetch_assoc($categoryResult)) {
                             echo '<option value="' . $categoryRow['idCategorie'] . '">' . $categoryRow['nomCategorie'] . '</option>';
                         }
-                    } else {
-                        echo '<option value="" disabled>No categories found</option>';
-                    }
+                    } 
                     ?>
                 </select>
             </div>

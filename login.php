@@ -49,17 +49,29 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O'PEP</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        h1{
+            -webkit-text-stroke: 2px #003f04;
+        }
+        h3{
+            -webkit-text-stroke: 1px #000;
+            
+        }
+    </style>
 </head>
 
 <body>
     <section class="bg-[url('./images/tsswira.png')] bg-cover h-screen flex items-center justify-center">
         <div class="min-h-[85vh] w-[90%] m-auto gap-[15px] flex flex-col md:flex-row md:justify-evenly items-center">
             <div class="md:w-[50%] w-[85%] flex flex-col gap-[25px] mt-[15px]">
-                <h1 class="text-gray-900 text-[45px] md:text-[60px]">O'PEP</h1>
-                <h3 class="text-gray-900 text-[25px] md:text-[30px]"> Your Gateway to Financial Harmony</h3>
+                <h1 class="text-white font-bold text-[40px]">Welcome to O'PEP - Your Botanical Paradise 
+</h1>
+                <h3 class="text-black text-[28px] font-lighter ">Join the O'PEP family, where nature meets passion! 
+
+</h3>
                 <p class="text-gray-900 text-[15px] md:text-[18px]">
-                    Chez "Jardins en Éveil", nous croyons en la magie des plantes et en leur capacité à apporter la vie à n'importe quel espace. Notre entreprise est née de la passion pour la nature et le désir de partager la beauté et les bienfaits des plantes avec le monde.
-                </p>
+                     </p>
             </div>
 
             <div class="h-[90vh] w-[100%] md:w-[40%] flex justify-center items-center">

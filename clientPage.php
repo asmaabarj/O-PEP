@@ -125,11 +125,15 @@ session_start();?>
                 </li>
                 <li
                     class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-                    <a href="contactUs.php">Contact</a>
+                    <a href="contactClient.php">Contact</a>
+                </li>
+                <li
+                    class="p-4 border-b-2 border-red-500 border-opacity-0 border-opacity-100 text-red-500 duration-200 cursor-pointer">
+                    <a href="index.php">Log out</a>
                 </li>
             </ul>
         </nav>
-        <a href><svg class="h-8 p-1 hover:text-green-500 duration-200" aria-hidden="true" focusable="false"
+        <a href ="panier.php" value=""><svg class="h-8 p-1 hover:text-green-500 duration-200" aria-hidden="true" focusable="false"
         data-prefix="far" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512" class="svg-inline--fa fa-shopping-cart fa-w-18 fa-7x">
         <path fill="currentColor"
