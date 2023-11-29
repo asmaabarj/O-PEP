@@ -1,9 +1,11 @@
 <?php
 @include 'config.php';
 session_start();
-
 if (isset($_POST['submit'])) {
+
     $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $_SESSION['LOGINEMAIL']=$email;
+
     $password = md5($_POST['password']);
     
     $select = "SELECT utilisateur.*, roles.nameRole
@@ -20,6 +22,7 @@ if (isset($_POST['submit'])) {
 
             if ($roleName == 'admin' || $roleName == 'client') {
                 $_SESSION['user_type'] = strtolower($roleName);
+                $_SESSION['idUtilisateur'] = $row['idUtilisateur'];
                 header("location: {$roleName}Page.php");
                 exit();
             } else {
