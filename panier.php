@@ -9,7 +9,6 @@ if ($conn->connect_error) {
 if (!isset($_SESSION['idUtilisateur']) || (isset($_SESSION['user_type']) && $_SESSION['user_type'] !== 'client')) {
 }
 
-$userData = array();
 
 if (isset($_SESSION['idUtilisateur'])) {
     $userData = $_SESSION['idUtilisateur'];
@@ -22,15 +21,29 @@ $platspanier = "SELECT p.*, COUNT(*) as quantity FROM plante p
                 WHERE panier.idUtilisateur = $userId
                 GROUP BY panier.idPanier;";
 $result = $conn->query($platspanier);
-if (isset($_POST['remove'])) {
-    $plantIdToRemove = $_POST['remove'];
 
-    $deletePlantQuery = "DELETE FROM panier WHERE idPlante = '$plantIdToRemove'";
-    mysqli_query($conn, $deletePlantQuery);
+if (isset($_POST['commander'])) {
+    $iduserr = $_POST['commander'];
+    
+    $sqlPanier = "SELECT * FROM `panier` WHERE idUtilisateur = $iduserr";
+    $querquery = $conn->query($sqlPanier);
+
+    while ($rowss = $querquery->fetch_assoc()) {
+        $insertCommand = "INSERT INTO commande (idUtilisateur, idPanier) VALUES ('" . $rowss['idUtilisateur'] . "', '" . $rowss['idPanier'] . "')";
+        $conn->query($insertCommand);
+      $idd =  $rowss['idUtilisateur'];
+        $deleteCommande = "DELETE FROM panier WHERE idUtilisateur = $idd";
+        $conn->query($deleteCommande);
+    
+    }
+   
 
     header("Location: panier.php");
     exit();
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +69,7 @@ if (isset($_POST['remove'])) {
     <div class="flex">
     <div class="container mx-auto mt-10">
         <div class="flex shadow-md my-10">
-            <div class="w-[90%] bg-white px-10 py-10">
+            <div class="w-[100%] bg-white px-10 py-10">
                 <div class="flex justify-between border-b pb-8">
                     <h1 class="font-semibold text-2xl">Shopping Cart</h1>
                     <h2 class="font-semibold text-2xl">
@@ -85,12 +98,7 @@ if (isset($_POST['remove'])) {
                             <span class="text-center w-1/5 font-semibold text-sm">
                                 <?php echo $row['prix']; ?> MAD
                             </span>
-                            <form method="post" action="panier.php" class="flex flex-col">
-                                <button name="remove" value="<?php echo $row['idPlante']; ?>"
-                                    class="text-white bg-red-700 hover:bg-red-800 focus:outline-none flex items-center h-[5vh] focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                                    Remove
-                                </button>
-                            </form>
+                     
                         </div>
                         <?php
                     }
@@ -124,10 +132,67 @@ if (isset($_POST['remove'])) {
                 echo '<span>' . $totalCost . ' MAD</span>';
                 ?>
             </div>
-            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">command</button>
-        </div>
+            <?php
+            
+                    $row = $result->fetch_assoc();
+                        ?>
+            <form action="panier.php" method="post"><input type="hidden" name="commander" value="<?php echo $userId; ?>">
+<input type ="submit" value="command" name="command" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+</form>
+<?php
+
+                    
+?> 
+</div>
     </div>
             </div>
+
+
+            <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+    <link rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+    <footer class="relative bg-green-900 pt-8 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap text-left lg:text-left justify-between mr-[50px]">
+                <div class="w-full lg:w-6/12 px-4">
+                    <h4 class="text-3xl font-semibold text-white">Let's keep in touch!</h4>
+                    <h5 class="text-lg mt-0 mb-2 text-blueGray-300">
+                        Find us on any of these platforms, we respond 1-2 business days. </h5>
+                    <div class="mt-6 lg:mb-0 mb-6">
+                        <button
+                            class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                            type="button">
+                            <i class="fab fa-twitter"></i></button><button
+                            class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                            type="button">
+                            <i class="fab fa-facebook-square"></i></button>
+                            <div class="mt-[10px]"><input type="text" id="email-address-icon"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="name@flowbite.com"></div>
+                    </div>
+                </div>
+                <div class="ml-[10vw]">
+                <p class=" my-4 text-2xl font-semibold text-white ">Informations </p>
+                <p class="text-lg mt-0 mb-2 text-blueGray-300"><a href="#">Home<br></a>
+                <a href="#">FAQ<br></a>
+                <a href="#">About us<br></a>
+                <a href="#">Our history<br></a>
+                </p>
+            </div>
+                <div class="">
+                <p class=" my-4 text-2xl font-semibold text-white ">Contact </p>
+                <p class="text-lg mt-0 mb-2 text-blueGray-300">www.o'pep-plant.ma
+                    <br>contact@o'pep.ma
+                    <br>+212 (0) 6 69 66 62 05
+                    <br>+212 (0) 6 12 13 14 15
+                </p>
+            </div>
+            </div>
+            <hr class="my-6 border-blueGray-300">
+            <h2 class="text-center" >Copyright © 2023 Hashtag O'PEP. All Rights Reserved</h2>
+        </div>
+    </footer>
+    
 </body>
 
 </html>
