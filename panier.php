@@ -29,7 +29,7 @@ if (isset($_POST['commander'])) {
     $querquery = $conn->query($sqlPanier);
 
     while ($rowss = $querquery->fetch_assoc()) {
-        $insertCommand = "INSERT INTO commande (idUtilisateur, idPanier) VALUES ('" . $rowss['idUtilisateur'] . "', '" . $rowss['idPanier'] . "')";
+        $insertCommand = "INSERT INTO commande (idUtilisateur, idPlante) VALUES ('" . $rowss['idUtilisateur'] . "', '" . $rowss['idPlante'] . "')";
         $conn->query($insertCommand);
       $idd =  $rowss['idUtilisateur'];
         $deleteCommande = "DELETE FROM panier WHERE idUtilisateur = $idd";
@@ -54,6 +54,11 @@ if (isset($_POST['commander'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function confirmCommand() {
+            return confirm("Are you sure you want to pass a command");
+        }
+    </script>
 
     <style>
         #summary {
@@ -76,9 +81,9 @@ if (isset($_POST['commander'])) {
                         <?php echo $result->num_rows; ?> Items
                     </h2>
                 </div>
-                <div class="flex gap-[125px] mt-10 mb-5">
+                <div class="flex gap-[19rem] mt-10 mb-5">
                     <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+                    <h3 class="font-semibold text-right text-gray-600 text-xs uppercase w-1/5 text-right">Price</h3>
                 </div>
                 <?php
                 if ($result->num_rows > 0) {
@@ -136,7 +141,7 @@ if (isset($_POST['commander'])) {
             
                     $row = $result->fetch_assoc();
                         ?>
-            <form action="panier.php" method="post"><input type="hidden" name="commander" value="<?php echo $userId; ?>">
+            <form action="panier.php" method="post" onsubmit="return confirmCommand();"><input type="hidden" name="commander" value="<?php echo $userId; ?>">
 <input type ="submit" value="command" name="command" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
 </form>
 <?php
