@@ -88,12 +88,12 @@ if (isset($_POST["basket"])) {
 
         <a href="panier.php">
             <div style="position: relative;">
-                <?php
-                $quer = $conn->prepare("SELECT idUtilisateur FROM panier WHERE idUtilisateur = ?");
-                $quer->bind_param("i", $user_id);
-                $quer->execute();
-                $result = $quer->get_result();
-                $row = $result->num_rows;
+            <?php
+               $quer = $conn->query("SELECT COUNT(idPanier) AS rowCount FROM panier WHERE idPanier > 0");
+               $row = $quer->fetch_assoc(); 
+               $rowCount = $row['rowCount'];
+
+                echo '<p class="rounded-full  h-[17px] w-[17px] text-[10px] flex justify-center items-center bg-green-500 absolute top-0 right-0">' . $rowCount . '</p>';
                 ?>
 
                 <a href="panier.php" value="">
@@ -107,7 +107,7 @@ if (isset($_POST["basket"])) {
 
         </a>
     </header>
-    <div class="flex items-center">
+    <div class="flex  w-[100vw] justify-center flex-wrap bg-gray-600">
     <?php
     $categoryQuery = "SELECT idCategorie, nomCategorie FROM categorie";
     $categoryResult = mysqli_query($conn, $categoryQuery);
