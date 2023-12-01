@@ -42,7 +42,13 @@ if (isset($_POST['commander'])) {
     exit();
 }
 
+if (isset($_POST["Clear"])){
+    $deleteCommande = "DELETE FROM panier WHERE idUtilisateur = $userId";
+    $conn->query($deleteCommande);
+    header("Location: panier.php");
 
+
+}
 
 ?>
 
@@ -111,6 +117,7 @@ if (isset($_POST['commander'])) {
                     echo "No items in the cart.";
                 }
                 ?>
+                <div class="flex justify-between items-center">
                 <a href="productClient.php" class="flex font-semibold text-indigo-600 text-sm mt-10">
                     <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
                         <path
@@ -118,6 +125,9 @@ if (isset($_POST['commander'])) {
                     </svg>
                     Continue Shopping
                 </a>
+                <form action="panier.php" method="post">
+                <input class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer" type="submit" name="Clear" value="Clear Basket"></form>
+                </div>
             </div>
         </div>
     </div>

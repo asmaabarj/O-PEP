@@ -1,40 +1,20 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1
--- Généré le : mer. 29 nov. 2023 à 23:04
--- Version du serveur : 10.4.28-MariaDB
--- Version de PHP : 8.2.4
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `opep`
---
 
 -- --------------------------------------------------------
+--creation de la base de donnees
 
---
+CREATE DATABASE opep;
 -- Structure de la table `categorie`
---
+
 
 CREATE TABLE `categorie` (
   `idCategorie` int(11) NOT NULL,
   `nomCategorie` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+
 -- Déchargement des données de la table `categorie`
---
+
 
 INSERT INTO `categorie` (`idCategorie`, `nomCategorie`) VALUES
 (1, 'Palm trees'),
@@ -47,9 +27,9 @@ INSERT INTO `categorie` (`idCategorie`, `nomCategorie`) VALUES
 
 -- --------------------------------------------------------
 
---
+
 -- Structure de la table `commande`
---
+
 
 CREATE TABLE `commande` (
   `idCommande` int(11) NOT NULL,
@@ -59,9 +39,9 @@ CREATE TABLE `commande` (
 
 -- --------------------------------------------------------
 
---
+
 -- Structure de la table `panier`
---
+
 
 CREATE TABLE `panier` (
   `idPanier` int(11) NOT NULL,
@@ -71,9 +51,9 @@ CREATE TABLE `panier` (
 
 -- --------------------------------------------------------
 
---
+
 -- Structure de la table `plante`
---
+
 
 CREATE TABLE `plante` (
   `idPlante` int(11) NOT NULL,
@@ -83,9 +63,9 @@ CREATE TABLE `plante` (
   `imagePlant` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+
 -- Déchargement des données de la table `plante`
---
+
 
 INSERT INTO `plante` (`idPlante`, `idCategorie`, `nomPlante`, `prix`, `imagePlant`) VALUES
 (1, 1, 'howea forsteriana (kentia)', 1110.10, './images/picture1.png'),
@@ -118,18 +98,18 @@ INSERT INTO `plante` (`idPlante`, `idCategorie`, `nomPlante`, `prix`, `imagePlan
 
 -- --------------------------------------------------------
 
---
+
 -- Structure de la table `roles`
---
+
 
 CREATE TABLE `roles` (
   `idRole` int(11) NOT NULL,
   `nameRole` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);
 
---
+
 -- Déchargement des données de la table `roles`
---
+
 
 INSERT INTO `roles` (`idRole`, `nameRole`) VALUES
 (1, 'admin'),
@@ -137,9 +117,8 @@ INSERT INTO `roles` (`idRole`, `nameRole`) VALUES
 
 -- --------------------------------------------------------
 
---
+
 -- Structure de la table `utilisateur`
---
 
 CREATE TABLE `utilisateur` (
   `idUtilisateur` int(11) NOT NULL,
@@ -150,9 +129,9 @@ CREATE TABLE `utilisateur` (
   `MdpUtilisateur` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+
 -- Déchargement des données de la table `utilisateur`
---
+
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `idRole`, `nomUtilisateur`, `prénomUtilisateur`, `emailUtilisateur`, `MdpUtilisateur`) VALUES
 (2, 2, 'barj', 'asmaa', 'asmaabarj5@gmail.com', '202cb962ac59075b964b07152d234b70'),
@@ -165,98 +144,96 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `idRole`, `nomUtilisateur`, `prénom
 (14, 2, 'aaa', 'aaaa', 'aaa@gmail.com', '47bce5c74f589f4867dbd57e9ca9f808'),
 (15, 2, 'douaa', 'douaa', 'douaa@gmail.com', '202cb962ac59075b964b07152d234b70');
 
---
--- Index pour les tables déchargées
---
 
---
+-- Index pour les tables déchargées
+
+
+
 -- Index pour la table `categorie`
---
+
 ALTER TABLE `categorie`
   ADD PRIMARY KEY (`idCategorie`);
 
---
+
 -- Index pour la table `commande`
---
+
 ALTER TABLE `commande`
   ADD PRIMARY KEY (`idCommande`),
   ADD KEY `idUtilisateur` (`idUtilisateur`);
 
---
+
 -- Index pour la table `panier`
---
+
 ALTER TABLE `panier`
   ADD PRIMARY KEY (`idPanier`),
   ADD KEY `idUtilisateur` (`idUtilisateur`),
   ADD KEY `idPlante` (`idPlante`);
 
---
+
 -- Index pour la table `plante`
---
+
 ALTER TABLE `plante`
   ADD PRIMARY KEY (`idPlante`),
   ADD KEY `plante_fk_1` (`idCategorie`);
 
---
+
 -- Index pour la table `roles`
---
+
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`idRole`);
 
---
+
 -- Index pour la table `utilisateur`
---
+
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`idUtilisateur`),
   ADD KEY `fk_utilisateur_role` (`idRole`);
 
---
--- AUTO_INCREMENT pour les tables déchargées
---
 
---
+
+
+
 -- AUTO_INCREMENT pour la table `categorie`
---
+
 ALTER TABLE `categorie`
-  MODIFY `idCategorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idCategorie` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT;
 
---
+
 -- AUTO_INCREMENT pour la table `panier`
---
-ALTER TABLE `panier`
-  MODIFY `idPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
---
+ALTER TABLE `panier`
+  MODIFY `idPanier` int(11) NOT NULL AUTO_INCREMENT;
+
+
 -- AUTO_INCREMENT pour la table `plante`
---
+
 ALTER TABLE `plante`
   MODIFY `idPlante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
---
+
 -- AUTO_INCREMENT pour la table `utilisateur`
---
+
 ALTER TABLE `utilisateur`
   MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- Contraintes pour les tables déchargées
---
 
---
+
+
+
 -- Contraintes pour la table `commande`
---
+
 ALTER TABLE `commande`
   ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
 
---
+
 -- Contraintes pour la table `panier`
---
+
 ALTER TABLE `panier`
   ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`),
   ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`idPlante`) REFERENCES `plante` (`idPlante`);
@@ -267,13 +244,10 @@ ALTER TABLE `panier`
 ALTER TABLE `plante`
   ADD CONSTRAINT `plante_fk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categorie` (`idCategorie`);
 
---
+
 -- Contraintes pour la table `utilisateur`
---
+
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `fk_utilisateur_role` FOREIGN KEY (`idRole`) REFERENCES `roles` (`idRole`);
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
